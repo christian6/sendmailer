@@ -1,0 +1,17 @@
+{
+  "name": "sendmailer",
+  "version": "0.5.1",
+  "description": "system message send mail to users",
+  "main": "app.js",
+  "dependencies": {
+    "express": "~3.4.4",
+    "jade": "~1.11.0",
+    "nodemailer": "~0.5.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Christian Valdez",
+  "license": "BSD-2-Clause"
+}
