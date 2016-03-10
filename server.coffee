@@ -47,6 +47,12 @@ send = (_url, req, res) ->
                 res.write '{"status": true, "raise": "mail send"}'
                 res.end()
                 return
+    else
+        res.writeHead 200, 
+            'Content-Type': 'text/plain'
+            'Access-Control-Allow-Origin': '*'
+        res.write '{"status": false, "raise": "nothing email nothing"}'
+        res.end()
     console.log params
     return
 

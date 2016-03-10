@@ -58,6 +58,13 @@ send = function(_url, req, res) {
         res.end();
       }
     });
+  } else {
+    res.writeHead(200, {
+      'Content-Type': 'text/plain',
+      'Access-Control-Allow-Origin': '*'
+    });
+    res.write('{"status": false, "raise": "nothing email nothing"}');
+    res.end();
   }
   console.log(params);
 };
