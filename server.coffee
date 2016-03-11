@@ -24,6 +24,7 @@ send = (_url, req, res) ->
         'Content-Type': 'text/plain'
         'Access-Control-Allow-Origin': '*'
     params = url.parse(req.url, true).query
+    console.log params
     if /(.+)@(.+){2,}\.(.+){2,}/.test params.email
         nodemailer = require 'nodemailer'
         smtpTransport = nodemailer.createTransport 'SMTP',
@@ -56,15 +57,15 @@ send = (_url, req, res) ->
     console.log params
     return
 
-sendMails = (_url, req, res) ->
-    # console.log req.query
-    console.log url.parse(req.url, true).query
-    res.writeHead 200, 'Content-Type': 'application/json'
-    # here verify email
+# sendMails = (_url, req, res) ->
+#     # console.log req.query
+#     console.log url.parse(req.url, true).query
+#     res.writeHead 200, 'Content-Type': 'application/json'
+#     # here verify email
     
-    res.write "{'status': false}"
-    res.end()
-    return
+#     res.write "{'status': false}"
+#     res.end()
+#     return
 
 server.listen port
 sys.puts "Server running at in port #{port} localhost"
