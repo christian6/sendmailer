@@ -51,6 +51,8 @@ send = function(_url, req, res) {
       html: params.body
     };
     smtpTransport.sendMail(mailOptions, function(error, response) {
+      console.log(response);
+      console.log(error);
       if (error) {
         res.write('{"status": false, "raise": "nothing send mail"}');
         res.end();

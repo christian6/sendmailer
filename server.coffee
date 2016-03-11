@@ -38,8 +38,8 @@ send = (_url, req, res) ->
             subject: params.subject
             html: params.body
         smtpTransport.sendMail mailOptions, (error, response) ->
-            # console.log response
-            # console.log error
+            console.log response
+            console.log error
             if error
                 res.write '{"status": false, "raise": "nothing send mail"}'
                 res.end()
