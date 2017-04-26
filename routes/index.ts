@@ -17,12 +17,12 @@ exports.enviar = function(req, res) {
   smtpTransport = nodemailer.createTransport("SMTP", {
     service: "Gmail",
     auth: {
-      user: "logistica@icrperusa.com",
-      pass: "MGisla2011"
+      user: "info@icrperusa.com",
+      pass: "AHuachipa120"
     }
   });
   mailOptions = {
-    from: "Logistica ICR PERU S.A. ✔ <logistica@icrperusa.com>",
+    from: "INFO ICR PERU S.A. ✔ <info@icrperusa.com>",
     to: req.body.email,
     subject: req.body.asunto,
     html: req.body.texto
@@ -48,17 +48,18 @@ exports.envelop = function(request, response) {
   authProperty = new Object;
   fromProperty = "";
   if (request.param("pwdmailer") !== void 0) {
-    console.log("success");
-    fromProperty = "" + (request.param("name")) + " <" + (request.param("email")) + "> ✔";
+    console.log("success " + (request.param("name")));
+    fromProperty = "" + (request.param("name").toString()) + " ✔ <" + (request.param("email").toString()) + "> ";
+    console.log(fromProperty);
     authProperty = {
       user: request.param("email"),
       pass: request.param("pwdmailer")
     };
   } else {
-    fromProperty = "Logistica ICR PERU S.A. ✔ <logistica@icrperusa.com>";
+    fromProperty = "INFO ICR PERU S.A. ✔ <logistica@icrperusa.com>";
     authProperty = {
-      user: "logistica@icrperusa.com",
-      pass: "MGisla2011"
+      user: "info@icrperusa.com",
+      pass: "AHuachipa120"
     };
   }
   smtpTransport = nodemailer.createTransport("SMTP", {
@@ -71,17 +72,24 @@ exports.envelop = function(request, response) {
     subject: request.param("issue"),
     html: request.param("body")
   };
+  if (request.param("ccb") !== void 0) {
+    emailOptions.cc = request.param("ccb");
+  }
+  if (request.param("ccob") !== void 0) {
+    emailOptions.cco = request.param("ccob");
+  }
   smtpTransport.sendMail(emailOptions, function(error, result) {
+    var context;
+    context = new Object;
     if (error) {
-      console.error(error);
-      response.render("error", {
-        title: "Error al enviar mensaje"
-      });
+      context.status = false;
+      console.error("error " + error + ", result " + result);
     } else {
+      context.status = true;
       console.log("Message sent: " + result.message);
-      response.render("enviado", {
-        title: "El mensaje fue enviado"
-      });
     }
+    response.setHeader("Content-Type", "application/json");
+    response.type("application/json");
+    response.jsonp(context);
   });
 };
