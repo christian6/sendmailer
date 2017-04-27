@@ -1,10 +1,13 @@
 var nodemailer = require("nodemailer");
 exports.sendmail = function (request, response) {
-    // console.log(request);
-    // test "{\"to\":\"cvaldezchavez@gmail.com\", \"subject\":\"test for send mail\", \"cc\": \"cvaldezch@outlook.com\", \"cco\":\"foxtime03@gmail.com\", \"body\": \"<strong>Hi! this is body test from node.<\/strong>\"}"
-    //var test = JSON.stringify({"to":"cvaldezchavez@gmail.com", "subject":"test for send mail", "cc": "cvaldezch@outlook.com", "cco":"foxtime03@gmail.com", "body": "<strong>Hi! this is body test from node.</strong>"});
-    // console.log(request.query["mail"]);
-    console.log(JSON.parse(request.query["mail"]));
+    // {
+    //     "to": "cvaldezchavez@gmail.com",
+    //     "subject": "test for send mail",
+    //     "cc": "cvaldezch@outlook.com",
+    //     "cco": "foxtime03@gmail.com",
+    //     "body": "<strong>Hi! this is body test from node.</strong>",
+    //     "status": true
+    // }
     var kwargs = JSON.parse(request.query["mail"]);
     console.info('typo de object' + typeof (kwargs));
     if (typeof kwargs === "objectstring") {
