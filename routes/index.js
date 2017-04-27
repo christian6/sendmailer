@@ -17,12 +17,12 @@ exports.enviar = function(req, res) {
   smtpTransport = nodemailer.createTransport("SMTP", {
     service: "Gmail",
     auth: {
-      user: "logistica@icrperusa.com",
-      pass: "MGisla2011"
+      user: "info@icrperusa.com",
+      pass: "AHuachipa120"
     }
   });
   mailOptions = {
-    from: "Logistica ICR PERU S.A. ✔ <logistica@icrperusa.com>",
+    from: "INFO ICR PERU S.A. ✔ <info@icrperusa.com>",
     to: req.body.email,
     subject: req.body.asunto,
     html: req.body.texto
@@ -56,10 +56,10 @@ exports.envelop = function(request, response) {
       pass: request.param("pwdmailer")
     };
   } else {
-    fromProperty = "Logistica ICR PERU S.A. ✔ <logistica@icrperusa.com>";
+    fromProperty = "INFO ICR PERU S.A. ✔ <logistica@icrperusa.com>";
     authProperty = {
-      user: "logistica@icrperusa.com",
-      pass: "MGisla2011"
+      user: "info@icrperusa.com",
+      pass: "AHuachipa120"
     };
   }
   smtpTransport = nodemailer.createTransport("SMTP", {
@@ -73,10 +73,10 @@ exports.envelop = function(request, response) {
     html: request.param("body")
   };
   if (request.param("ccb") !== void 0) {
-    elmailOptions.cc = request.param("ccb");
+    emailOptions.cc = request.param("ccb");
   }
   if (request.param("ccob") !== void 0) {
-    elmailOptions.cco = request.param("ccob");
+    emailOptions.cco = request.param("ccob");
   }
   smtpTransport.sendMail(emailOptions, function(error, result) {
     var context;
