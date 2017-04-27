@@ -1,7 +1,9 @@
 {
-    "compilerOptions": {
-        "noImplicitAny" : true,
-        "types": ["node", "express", "nodemailer"]
-    },
     "compileOnSave": true,
+    "compilerOptions": {
+        //"noImplicitAny" : true,
+        "target": "es5",
+        "types": ["node", "express", "nodemailer"],
+        "watch": true
+    }
 }
