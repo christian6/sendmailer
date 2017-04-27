@@ -11,7 +11,7 @@ exports.index = function (req, res) {
 };
 exports.enviar = function (req, res) {
     var mailOptions, smtpTransport;
-    smtpTransport = nodemailer.createTransport("SMTP", {
+    smtpTransport = nodemailer.createTransport({
         service: "Gmail",
         auth: {
             user: "info@icrperusa.com",
@@ -60,7 +60,7 @@ exports.envelop = function (request, response) {
             pass: "AHuachipa120"
         };
     }
-    smtpTransport = nodemailer.createTransport("SMTP", {
+    smtpTransport = nodemailer.createTransport({
         service: "Gmail",
         auth: authProperty
     });

@@ -11,10 +11,10 @@ exports.sendmail = function (request:any, response:any) {
     //     "status": true
     // }
     var kwargs: any = JSON.parse(request.query["mail"]);
-    console.info('typo de object' + typeof(kwargs));
-    if (typeof kwargs === "objectstring"){
+
+    if (typeof kwargs !== {}){
         kwargs = JSON.parse(kwargs);
-        console.info('typo de object' + typeof(kwargs));
+        console.info('typo de object' + typeof kwargs );
     }
     // prepare data for send mail
     var auth: object = {};
@@ -26,7 +26,7 @@ exports.sendmail = function (request:any, response:any) {
     auth['pass'] = 'AHuachipa120';
 
     // init service smtp
-    var smtpTransport = nodemailer.createTransport("SMTP", {
+    var smtpTransport = nodemailer.createTransport({
         service: "Gmail",
         auth: auth
     });
