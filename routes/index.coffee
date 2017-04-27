@@ -51,9 +51,9 @@ exports.envelop = (request, response) ->
     fromProperty = ""
     # emailProperty
     if request.param("pwdmailer") isnt undefined
-        console.log "success #{ request.param "name" }"
-        fromProperty = "#{ request.param("name").toString() } ✔ <#{ request.param("email").toString() }> "
-        console.log fromProperty
+        console.log "success"
+        fromProperty = "<#{ request.param "email" }> ✔"
+        #emailProperty = request.param "email"
         authProperty =
             user: request.param "email"
             pass: request.param "pwdmailer"
@@ -72,25 +72,15 @@ exports.envelop = (request, response) ->
         subject: request.param "issue"
         html: request.param "body"
 
-    if request.param("ccb") isnt undefined
-        elmailOptions.cc = request.param("ccb")
-
-    if request.param("ccob") isnt undefined
-        elmailOptions.cco = request.param("ccob")
-
     smtpTransport.sendMail emailOptions, (error, result) ->
-        context = new Object
         if error
-            context.status = false
-            console.error "error #{error}, result #{result}"
+            console.error error
+            response.render "error",
+            title: "Error al enviar mensaje"
+            return
         else
-            context.status = true
-            #context.result = result.message
             console.log "Message sent: " + result.message
-        response.setHeader "Content-Type", "application/json"
-        response.type "application/json"
-        # response.setEncoding("utf-8")
-        response.jsonp context
-        #response.end()
-        return
+            response.render "enviado",
+            title: "El mensaje fue enviado"
+            return
     return
