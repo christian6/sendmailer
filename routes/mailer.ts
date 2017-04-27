@@ -26,11 +26,11 @@ exports.sendmail = function (request:any, response:any) {
     }else{
         kwargs['raise'] = 'not found destinary mail';
     }
-    // valid param to issue
-    if (request.params.hasOwnProperty('issue')){
-        options['issue'] = request.params['issue'];
+    // valid param to subject
+    if (request.params.hasOwnProperty('subject')){
+        options['subject'] = request.params['subject'];
     }else{
-        kwargs['raise'] = 'not define an issue';
+        kwargs['raise'] = 'not define an subject';
     }
     // valid fields cc
     if (request.params.hasOwnProperty('cc')){
@@ -50,9 +50,18 @@ exports.sendmail = function (request:any, response:any) {
 
     response.setHeader('Content-Type', 'application/json');
     response.type('application/json');
-    response.json(kwargs);
-    if (Object.keys(kwargs).length){
 
+    if (Object.keys(kwargs).length){
+        smtpTransport.sendMail(options, function (error, result) {
+            if (error){
+                kwargs['status'] = false;
+                kwargs['raise'] = error;
+                console.error("Error message send: " + result.message);
+            }else{
+                kwargs['status'] = true;
+            }
+        });
+    // response.json(kwargs);
     }else{
         response.json(kwargs);
     }
