@@ -9,10 +9,9 @@ exports.sendmail = function (request, response) {
     //     "status": true
     // }
     var kwargs = JSON.parse(request.query["mail"]);
-    console.info('typo de object' + typeof (kwargs));
-    if (typeof kwargs === "objectstring") {
+    if (typeof kwargs !== {}) {
         kwargs = JSON.parse(kwargs);
-        console.info('typo de object' + typeof (kwargs));
+        console.info('typo de object' + typeof kwargs);
     }
     // prepare data for send mail
     var auth = {};
@@ -23,7 +22,7 @@ exports.sendmail = function (request, response) {
     auth['user'] = 'info@icrperusa.com';
     auth['pass'] = 'AHuachipa120';
     // init service smtp
-    var smtpTransport = nodemailer.createTransport("SMTP", {
+    var smtpTransport = nodemailer.createTransport({
         service: "Gmail",
         auth: auth
     });
